@@ -7,7 +7,7 @@ This is a simple playbook for setting up a compiling environment for OpenWrt.
 
 You should provide a VM or server where you have root privileges.
 
-This playbook is compatible with Debian 10. 
+This playbook is only compatible with Debian 10 at the moment.
 
 It will install all required packages, clone openwrt repository and execute the initial install scripts.
 
