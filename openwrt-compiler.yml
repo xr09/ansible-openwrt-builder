@@ -1,0 +1,55 @@
+---
+- name: Launch openwrt forger
+  hosts: all
+  vars:
+    packages:
+        - subversion
+        - g++
+        - zlib1g-dev
+        - build-essential
+        - git
+        - python
+        - python3
+        - python3-distutils
+        - libncurses5-dev
+        - gawk
+        - gettext
+        - unzip
+        - file
+        - libssl-dev
+        - wget
+        - libelf-dev
+        - ecj
+        - fastjar
+        - java-propose-classpath
+        - htop
+        - tmux
+        - mosh
+        - sudo
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+    
+    - name: Create forger user
+      user:
+        name: forger
+        shell: /bin/bash
+        home: /home/forger
+
+    - block:
+      - name: Clone OpenWRT repo
+        git: repo=https://git.openwrt.org/openwrt/openwrt.git dest=/home/forger/openwrt
+        become: yes
+        become_user: forger
+
+      - name: Install scripts
+        shell: "cd /home/forger/openwrt; {{ item }}"
+        with_items:
+          - "./scripts/feeds update -a"
+          - "./scripts/feeds install -a"
+      become: yes
+      become_user: forger
