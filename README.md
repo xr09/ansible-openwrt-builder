@@ -20,3 +20,5 @@ Specify the host ip on `hosts.ini`, then execute `ansible-playbook -i hosts.ini 
 
 
 Next you can login as user **forger**, go to */home/forger/openwrt/* and execute `make menuconfig` to launch the config interface. Choose your desired settings and execute `make` to start compilation.
+
+These steps are based on OpenWrt [Image Building Guide](https://openwrt.org/docs/guide-developer/quickstart-build-images).
